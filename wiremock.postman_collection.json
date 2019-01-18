@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "50437aac-52a0-450a-97c5-e9e1f6d6c21e",
+		"_postman_id": "bfdb6590-546a-43ec-905b-ce64fbd05eed",
 		"name": "wiremock",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,11 +15,11 @@
 					"raw": "{\r\n    \"request\": {\r\n        \"method\": \"GET\",\r\n        \"url\": \"/some/thing\"\r\n    },\r\n    \"response\": {\r\n        \"status\": 200,\r\n        \"body\": \"Hello world!\",\r\n        \"headers\": {\r\n            \"Content-Type\": \"text/plain\"\r\n        }\r\n    }\r\n}\r\n"
 				},
 				"url": {
-					"raw": "localhost:{{wiremock-port}}/__admin/mappings",
+					"raw": "localhost:{{wiremock_port}}/__admin/mappings",
 					"host": [
 						"localhost"
 					],
-					"port": "{{wiremock-port}}",
+					"port": "{{wiremock_port}}",
 					"path": [
 						"__admin",
 						"mappings"
@@ -48,11 +48,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock-port}}/__admin/mappings",
+					"raw": "localhost:{{wiremock_port}}/__admin/mappings",
 					"host": [
 						"localhost"
 					],
-					"port": "{{wiremock-port}}",
+					"port": "{{wiremock_port}}",
 					"path": [
 						"__admin",
 						"mappings"
@@ -72,11 +72,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock-port}}/some/thing",
+					"raw": "localhost:{{wiremock_port}}/some/thing",
 					"host": [
 						"localhost"
 					],
-					"port": "{{wiremock-port}}",
+					"port": "{{wiremock_port}}",
 					"path": [
 						"some",
 						"thing"
@@ -111,7 +111,10 @@
 							"\"    }\"+",
 							"\"}\"",
 							"",
-							"var url = \"localhost:8080/__admin/mappings\"",
+							"",
+							"",
+							"var wiremock_port = pm.environment.get(\"wiremock_port\");",
+							"var url = \"localhost:\"+wiremock_port+\"/__admin/mappings\"",
 							"",
 							"console.log(body)",
 							"",
@@ -142,11 +145,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock-port}}iremock-port/get/custom/{{value}}",
+					"raw": "localhost:{{wiremock_port}}/get/custom/{{value}}",
 					"host": [
 						"localhost"
 					],
-					"port": "{{wiremock-port}}iremock-port",
+					"port": "{{wiremock_port}}",
 					"path": [
 						"get",
 						"custom",
