@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "50437aac-52a0-450a-97c5-e9e1f6d6c21e",
+		"name": "wiremock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/__admin/mappings",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"request\": {\r\n        \"method\": \"GET\",\r\n        \"url\": \"/some/thing\"\r\n    },\r\n    \"response\": {\r\n        \"status\": 200,\r\n        \"body\": \"Hello world!\",\r\n        \"headers\": {\r\n            \"Content-Type\": \"text/plain\"\r\n        }\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "localhost:{{wiremock-port}}/__admin/mappings",
+					"host": [
+						"localhost"
+					],
+					"port": "{{wiremock-port}}",
+					"path": [
+						"__admin",
+						"mappings"
+					]
+				},
+				"description": "Post something to mock"
+			},
+			"response": []
+		},
+		{
+			"name": "/__admin/mappings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:{{wiremock-port}}/__admin/mappings",
+					"host": [
+						"localhost"
+					],
+					"port": "{{wiremock-port}}",
+					"path": [
+						"__admin",
+						"mappings"
+					]
+				},
+				"description": "Post something to mock"
+			},
+			"response": []
+		},
+		{
+			"name": "/some/thing",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:{{wiremock-port}}/some/thing",
+					"host": [
+						"localhost"
+					],
+					"port": "{{wiremock-port}}",
+					"path": [
+						"some",
+						"thing"
+					]
+				},
+				"description": "Call the mock"
+			},
+			"response": []
+		},
+		{
+			"name": "/get/custom/{{value}}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "816e9c93-a26a-4c1f-bc58-10dbf1e3b77e",
+						"exec": [
+							"var uuid = require('uuid'); var myUUID = uuid.v4();",
+							"console.log(\"uuid=\"+myUUID)",
+							"var myGuid = myUUID",
+							"var body = \"{\"+",
+							"\"    \\\"request\\\": {\"+",
+							"\"        \\\"method\\\": \\\"GET\\\",\"+",
+							"\"        \\\"url\\\": \\\"/get/custom/\" + myGuid + \"\\\"\" +",
+							"\"    },\"+",
+							"\"    \\\"response\\\": {\"+",
+							"\"        \\\"status\\\": 200,\"+",
+							"\"       \\\"body\\\": \\\"Hello world uuid\" + myGuid + \"!\\\",\"+",
+							"\"        \\\"headers\\\": {\"+",
+							"\"            \\\"Content-Type\\\": \\\"text/plain\\\"\"+",
+							"\"        }\"+",
+							"\"    }\"+",
+							"\"}\"",
+							"",
+							"var url = \"localhost:8080/__admin/mappings\"",
+							"",
+							"console.log(body)",
+							"",
+							"pm.globals.set(\"value\", myGuid);",
+							"",
+							"pm.sendRequest({",
+							"    url: url,",
+							"    method: 'POST',",
+							"    body: body",
+							"    ",
+							"}, function (err, res) {",
+							"    console.log(\"err=\"+err)",
+							"    console.log(\"res=\"+res)",
+							"    //pm.environment.set(\"access_token\", res.json().token);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:{{wiremock-port}}iremock-port/get/custom/{{value}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{wiremock-port}}iremock-port",
+					"path": [
+						"get",
+						"custom",
+						"{{value}}"
+					]
+				},
+				"description": "PreRequest script will generate a mock with a random url\nThe request will call the mock with the random value"
+			},
+			"response": []
+		}
+	]
+}
