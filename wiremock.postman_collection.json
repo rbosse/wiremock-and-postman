@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bfdb6590-546a-43ec-905b-ce64fbd05eed",
 		"name": "wiremock",
+		"_postman_id": "96b03526-e31c-bae6-5801-5556184a3085",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,11 +15,10 @@
 					"raw": "{\r\n    \"request\": {\r\n        \"method\": \"GET\",\r\n        \"url\": \"/some/thing\"\r\n    },\r\n    \"response\": {\r\n        \"status\": 200,\r\n        \"body\": \"Hello world!\",\r\n        \"headers\": {\r\n            \"Content-Type\": \"text/plain\"\r\n        }\r\n    }\r\n}\r\n"
 				},
 				"url": {
-					"raw": "localhost:{{wiremock_port}}/__admin/mappings",
+					"raw": "{{wiremock_prefix}}/__admin/mappings",
 					"host": [
-						"localhost"
+						"{{wiremock_prefix}}"
 					],
-					"port": "{{wiremock_port}}",
 					"path": [
 						"__admin",
 						"mappings"
@@ -31,16 +30,12 @@
 		},
 		{
 			"name": "/__admin/mappings",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -48,11 +43,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock_port}}/__admin/mappings",
+					"raw": "{{wiremock_prefix}}/__admin/mappings",
 					"host": [
-						"localhost"
+						"{{wiremock_prefix}}"
 					],
-					"port": "{{wiremock_port}}",
 					"path": [
 						"__admin",
 						"mappings"
@@ -72,11 +66,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock_port}}/some/thing",
+					"raw": "{{wiremock_prefix}}/some/thing",
 					"host": [
-						"localhost"
+						"{{wiremock_prefix}}"
 					],
-					"port": "{{wiremock_port}}",
 					"path": [
 						"some",
 						"thing"
@@ -92,7 +85,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "816e9c93-a26a-4c1f-bc58-10dbf1e3b77e",
+						"type": "text/javascript",
 						"exec": [
 							"var uuid = require('uuid'); var myUUID = uuid.v4();",
 							"console.log(\"uuid=\"+myUUID)",
@@ -132,8 +125,7 @@
 							"});",
 							"",
 							""
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
 			],
@@ -145,11 +137,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:{{wiremock_port}}/get/custom/{{value}}",
+					"raw": "{{wiremock_prefix}}/get/custom/{{value}}",
 					"host": [
-						"localhost"
+						"{{wiremock_prefix}}"
 					],
-					"port": "{{wiremock_port}}",
 					"path": [
 						"get",
 						"custom",
